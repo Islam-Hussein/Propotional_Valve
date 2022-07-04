@@ -21,7 +21,7 @@
  
 #define CS         DIO_PIN2
 
-#define ENC_MODE  12
+#define ENC_MODE  10
 
 
 

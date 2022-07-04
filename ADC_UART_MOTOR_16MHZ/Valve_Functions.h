@@ -9,6 +9,8 @@
 #ifndef VALVE_FUNCTIONS_H_
 #define VALVE_FUNCTIONS_H_
 
+#define F_CPU 16000000UL
+
 
 #include "Valve_EXT_Peripherals.h"
 #include "ADC.h"
@@ -87,6 +89,7 @@ void FAHREN(void);
 
 void Generic_Drive(void);
 
+void Calibration (void);
 
 void Update_Boundries(void);
 

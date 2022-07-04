@@ -24,7 +24,6 @@
 #include "Timer.h"
 
 
-void Calibration(void);
 
 int StringToInteger (char string[]);
 
@@ -108,17 +107,17 @@ int main(void)
 			{
 				if(POSITION != MIDDLE)
 				{
-					 ziel = Middle_Position;
+					uint16 ziel = Middle_Position;
 
-					 DCMotor_SetDir(DC_Motor_Dir_Calc(ziel , ENC_Read_In_Degree())); //Calculate the shortest route to Desired Position
-					 DCMotor_SetSpeed(10);
-					 while(!(abs(ziel - ENC_Read_In_Degree()  < 3))) // The programm will be stuck here until DC Motor get close to the Desired position
-					 {
-						 	UART_SendString(itoa(ENC_Read_In_Degree() , UART_BUFFER , 10));
-						 	UART_SendByte('\n');
-					 }
-					 DCMotor_Stop();
-					 POSITION = MIDDLE;
+					DCMotor_SetDir(DC_Motor_Dir_Calc(ziel , ENC_Read_In_Degree())); //Calculate the shortest route to Desired Position
+					DCMotor_SetSpeed(10);
+					while(!(abs(ziel - ENC_Read_In_Degree()  < 3))) // The programm will be stuck here until DC Motor get close to the Desired position
+					{
+						UART_SendString(itoa(ENC_Read_In_Degree() , UART_BUFFER , 10));
+						UART_SendByte('\n');
+					}
+					DCMotor_Stop();
+					POSITION = MIDDLE;
 				}
 			} 
 		}	
@@ -161,51 +160,3 @@ ISR (TIMER1_COMPA_vect)
 }
 
 
-void Calibration(void)
-{
-	DCMotor_SetDir(CLOCK_WISE_DIR);
-	DCMotor_SetSpeed(10);
-	
-	_delay_ms(800);
-	
-	DCMotor_Stop();
-	_delay_ms(500);
-	
-	max_right_angle = ENC_Read_In_Degree();
-	
-	
-	DCMotor_SetDir(ANTI_CLOCK_WISE_DIR);
-	DCMotor_SetSpeed(10);
-	
-	_delay_ms(800);
-	
-	DCMotor_Stop();
-	_delay_ms(500);
-
-	
-	max_left_angle = ENC_Read_In_Degree();
-	
-	if(max_right_angle > max_left_angle)
-	{
-
-		Middle_Position = max_left_angle + ((max_right_angle - max_left_angle) / 2 );
-
-	}
-	else
-	{
-		Middle_Position = (max_left_angle + max_right_angle) / 2;
-		if(Middle_Position > (circle / 2))
-		{
-			
-			Middle_Position -= (circle /2);
-		}
-	}
-	
-	eeprom_update_word((uint16 *) LEFT_ADDR , max_left_angle);
-	eeprom_update_word((uint16 *) RIGHT_ADDR , max_right_angle);
-	eeprom_update_word((uint16 *) MIDDLE_ADDR , Middle_Position);
-	
-	EINGELERNET = true;
-	
-	
-}

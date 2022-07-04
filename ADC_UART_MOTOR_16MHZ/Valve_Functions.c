@@ -8,7 +8,6 @@
 
 #include "Valve_Functions.h"
 
-#define F_CPU 16000000UL
 
 uint16 const THRESHOLD =  400;
 DC_MOTOR_DIR LAST_DIR = NO_Direction;
@@ -44,6 +43,8 @@ extern circle;
 
 extern Drive_Pink ;
 extern Drive_Blue ;
+
+extern EINGELERNET;
 
 struct CABLES
 {
@@ -378,11 +379,27 @@ void Drive_To_Max_Left(void)
 
 void Drive_To_Middle_Position(void)
 {
+	/*
 	uint16 End_Position = Middle_Position;
 	DCMotor_SetDir(DC_Motor_Dir_Calc(Middle_Position , ENC_Read_In_Degree())); //Calculate the shortest route to Desired Position
 	DCMotor_SetSpeed(10);
 	while(!(abs(Middle_Position - ENC_Read_In_Degree() ) < 2)); // The programm will be stuck here until DC Motor get close to the Desired position
 	DCMotor_Stop();
+	*/
+	if(POSITION != MIDDLE)
+	{
+		uint16 ziel = Middle_Position;
+
+		DCMotor_SetDir(DC_Motor_Dir_Calc(ziel , ENC_Read_In_Degree())); //Calculate the shortest route to Desired Position
+		DCMotor_SetSpeed(10);
+		while(!(abs(ziel - ENC_Read_In_Degree()  < 3))) // The programm will be stuck here until DC Motor get close to the Desired position
+		{
+			UART_SendString(itoa(ENC_Read_In_Degree() , UART_BUFFER , 10));
+			UART_SendByte('\n');
+		}
+		DCMotor_Stop();
+		POSITION = MIDDLE;
+	}	
 }
 
 
@@ -406,3 +423,51 @@ void Update_Boundries(void)
 
 
 
+void Calibration(void)
+{
+	DCMotor_SetDir(CLOCK_WISE_DIR);
+	DCMotor_SetSpeed(10);
+	
+	_delay_ms(800);
+	
+	DCMotor_Stop();
+	_delay_ms(500);
+	
+	max_right_angle = ENC_Read_In_Degree();
+	
+	
+	DCMotor_SetDir(ANTI_CLOCK_WISE_DIR);
+	DCMotor_SetSpeed(10);
+	
+	_delay_ms(800);
+	
+	DCMotor_Stop();
+	_delay_ms(500);
+
+	
+	max_left_angle = ENC_Read_In_Degree();
+	
+	if(max_right_angle > max_left_angle)
+	{
+
+		Middle_Position = max_left_angle + ((max_right_angle - max_left_angle) / 2 );
+
+	}
+	else
+	{
+		Middle_Position = (max_left_angle + max_right_angle) / 2;
+		if(Middle_Position > (circle / 2))
+		{
+			
+			Middle_Position -= (circle /2);
+		}
+	}
+	
+	eeprom_update_word((uint16 *) LEFT_ADDR , max_left_angle);
+	eeprom_update_word((uint16 *) RIGHT_ADDR , max_right_angle);
+	eeprom_update_word((uint16 *) MIDDLE_ADDR , Middle_Position);
+	
+	EINGELERNET = true;
+	
+	
+}

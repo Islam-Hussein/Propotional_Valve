@@ -13,7 +13,7 @@
     <OutputFileExtension>.elf</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
     <AssemblyName>ADC_UART_MOTOR_16MHZ</AssemblyName>
-    <Name>ADC_UART_MOTOR_16MHZ</Name>
+    <Name>Propotional_Ventil_16MHZ</Name>
     <RootNamespace>ADC_UART_MOTOR_16MHZ</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
