@@ -19,8 +19,12 @@
 #include "DC_MOTOR.h"
 #include "stdbool.h"
 #include "STD.h"
+
+#include <stdlib.h>
 #include <avr/io.h>
 #include <util/delay.h>
+#include <string.h>
+
 
 
 
@@ -76,11 +80,11 @@ void Update_Global_ADC_Direction(void);
 void Update_Mode(void);
 
 void Drive_Untill_Reach_End(void);
-
+/*
 void Drive_To_Max_Right(void);
 
 void Drive_To_Max_Left(void);
-
+*/
 void Drive_To_Middle_Position(void);
 
 void CABLES_READ(void);

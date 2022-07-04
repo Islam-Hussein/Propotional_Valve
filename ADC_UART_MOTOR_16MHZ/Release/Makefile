@@ -98,9 +98,9 @@ Timer.d \
 UART.d \
 Valve_Functions.d
 
-OUTPUT_FILE_PATH +=ADC_UART_MOTOR_16MHZ.elf
+OUTPUT_FILE_PATH +=Propotional_Ventil_16MHZ.elf
 
-OUTPUT_FILE_PATH_AS_ARGS +=ADC_UART_MOTOR_16MHZ.elf
+OUTPUT_FILE_PATH_AS_ARGS +=Propotional_Ventil_16MHZ.elf
 
 ADDITIONAL_DEPENDENCIES:=
 
@@ -201,13 +201,13 @@ all: $(OUTPUT_FILE_PATH) $(ADDITIONAL_DEPENDENCIES)
 $(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP) $(LIB_DEP) $(LINKER_SCRIPT_DEP)
 	@echo Building target: $@
 	@echo Invoking: AVR/GNU Linker : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -Wl,-Map="ADC_UART_MOTOR_16MHZ.map" -Wl,--start-group -Wl,-lm  -Wl,--end-group -Wl,--gc-sections -mmcu=atmega328p -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega328p"  
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -Wl,-Map="Propotional_Ventil_16MHZ.map" -Wl,--start-group -Wl,-lm  -Wl,--end-group -Wl,--gc-sections -mmcu=atmega328p -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega328p"  
 	@echo Finished building target: $@
-	"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures  "ADC_UART_MOTOR_16MHZ.elf" "ADC_UART_MOTOR_16MHZ.hex"
-	"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "ADC_UART_MOTOR_16MHZ.elf" "ADC_UART_MOTOR_16MHZ.eep" || exit 0
-	"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objdump.exe" -h -S "ADC_UART_MOTOR_16MHZ.elf" > "ADC_UART_MOTOR_16MHZ.lss"
-	"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O srec -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures "ADC_UART_MOTOR_16MHZ.elf" "ADC_UART_MOTOR_16MHZ.srec"
-	"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-size.exe" "ADC_UART_MOTOR_16MHZ.elf"
+	"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures  "Propotional_Ventil_16MHZ.elf" "Propotional_Ventil_16MHZ.hex"
+	"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "Propotional_Ventil_16MHZ.elf" "Propotional_Ventil_16MHZ.eep" || exit 0
+	"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objdump.exe" -h -S "Propotional_Ventil_16MHZ.elf" > "Propotional_Ventil_16MHZ.lss"
+	"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O srec -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures "Propotional_Ventil_16MHZ.elf" "Propotional_Ventil_16MHZ.srec"
+	"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-size.exe" "Propotional_Ventil_16MHZ.elf"
 	
 	
 
@@ -219,5 +219,5 @@ $(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP) $(LIB_DEP) $(LINKER
 clean:
 	-$(RM) $(OBJS_AS_ARGS) $(EXECUTABLES)  
 	-$(RM) $(C_DEPS_AS_ARGS)   
-	rm -rf "ADC_UART_MOTOR_16MHZ.elf" "ADC_UART_MOTOR_16MHZ.a" "ADC_UART_MOTOR_16MHZ.hex" "ADC_UART_MOTOR_16MHZ.lss" "ADC_UART_MOTOR_16MHZ.eep" "ADC_UART_MOTOR_16MHZ.map" "ADC_UART_MOTOR_16MHZ.srec" "ADC_UART_MOTOR_16MHZ.usersignatures"
+	rm -rf "Propotional_Ventil_16MHZ.elf" "Propotional_Ventil_16MHZ.a" "Propotional_Ventil_16MHZ.hex" "Propotional_Ventil_16MHZ.lss" "Propotional_Ventil_16MHZ.eep" "Propotional_Ventil_16MHZ.map" "Propotional_Ventil_16MHZ.srec" "Propotional_Ventil_16MHZ.usersignatures"
 	

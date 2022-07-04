@@ -23,6 +23,9 @@
 #include "Valve_Functions.h"
 #include "Timer.h"
 
+void Drive_To_Max_Right(void);
+
+void Drive_To_Max_left(void);
 
 
 int StringToInteger (char string[]);
@@ -160,3 +163,46 @@ ISR (TIMER1_COMPA_vect)
 }
 
 
+
+void Drive_To_Max_Right(void)
+{
+	if(POSITION != RIGHT)
+	{
+		
+		
+		uint16 End_Position = max_right_angle;
+		DCMotor_SetDir(DC_Motor_Dir_Calc(End_Position , ENC_Read_In_Degree())); //Calculate the shortest route to Desired Position
+		DCMotor_SetSpeed(10);
+		while(!(abs(End_Position - ENC_Read_In_Degree()  < 3))) // The programm will be stuck here until DC Motor get close to the Desired position
+		{
+			UART_SendString(itoa(ENC_Read_In_Degree() , UART_BUFFER , 10));
+			UART_SendByte('\n');
+			
+		}
+		DCMotor_Stop();
+		POSITION =RIGHT;
+		
+		Reached_Position = max_right_angle;
+	}
+}
+
+void Drive_To_Max_Left(void)
+{
+	if(POSITION != LEFT)
+	{
+		
+		
+		uint16 End_Position = max_left_angle;
+		DCMotor_SetDir(DC_Motor_Dir_Calc(End_Position , ENC_Read_In_Degree())); //Calculate the shortest route to Desired Position
+		DCMotor_SetSpeed(10);
+		while(!(abs(End_Position - ENC_Read_In_Degree())  < 2)) // The programm will be stuck here until DC Motor get close to the Desired position
+		{
+			UART_SendString(itoa(ENC_Read_In_Degree() , UART_BUFFER , 10));
+			UART_SendByte('\n');
+			
+		}
+		DCMotor_Stop();
+		Reached_Position = max_left_angle;
+		POSITION = LEFT;
+	}
+}

@@ -21,7 +21,8 @@ main.d main.o: .././main.c \
  .././STD.h .././STD_MATH.h .././DC_MOTOR.h .././DIO.h .././BIT_MATH.h \
  .././Timer.h .././ATMEGA328_RESGISTERS.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdbool.h \
- .././UART.h .././ENCODER.h .././ENC_Cfg.h .././Valve_Functions.h
+ .././UART.h .././ENCODER.h .././ENC_Cfg.h .././Valve_Functions.h \
+ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h:
 
@@ -88,3 +89,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\
 .././ENC_Cfg.h:
 
 .././Valve_Functions.h:
+
+c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h:

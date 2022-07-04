@@ -333,7 +333,7 @@ void Generic_Drive(void)
 }
 
 
-
+/*
 void Drive_To_Max_Right(void)
 {
 	if(POSITION != RIGHT)
@@ -376,7 +376,7 @@ void Drive_To_Max_Left(void)
 		POSITION = LEFT;
 	}
 }
-
+*/
 void Drive_To_Middle_Position(void)
 {
 	/*

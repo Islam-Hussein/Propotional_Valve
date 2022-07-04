@@ -16,7 +16,6 @@ volatile uint8 flag = 0;
 
 
 
-
 void UART_Init(void)
 {
 	
